@@ -29,5 +29,40 @@ function pauseAll() {
 // 给play事件绑定暂停函数
 [].forEach.call(audios, function (i) {
     i.addEventListener("play", pauseAll.bind(i));
+    
+    // 音频和视频互斥 
+         handleAV(tag) {
+
+            let tags = document.getElementsByTagName(tag);
+
+            for (let i = tags.length - 1; i >= 0; i--) {
+                 (function(){
+                    let p = i;
+                    tags[p].addEventListener('play',function(){
+                        pauseAll(p);
+                    })
+                })()
+            }
+
+            function pauseAll(index) {
+                for (let j = tags.length - 1; j >= 0; j--) {
+                    if (j!=index) {
+                        tags[j].pause();
+                    }    
+                }
+                if (tag === 'audio'){
+                    pauseOther('video')
+                }
+                if (tag === 'video') {
+                    pauseOther('audio')
+                }
+            }
+            function pauseOther(type) {
+                let types = document.getElementsByTagName(type);
+                for (let k = types.length - 1; k >= 0; k--) {
+                    types[k].pause()
+                }
+            }
+        },   
   
 ```
