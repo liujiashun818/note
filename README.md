@@ -64,5 +64,7 @@ function pauseAll() {
                 }
             }
         },   
+
+网站https://zh.javascript.info/getting-started
   
 ```
